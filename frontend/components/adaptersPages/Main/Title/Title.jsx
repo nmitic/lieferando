@@ -3,7 +3,7 @@ import Typography from '@material-ui/core/Typography';
 const Title = props => {
   return (
       <div>
-        <Typography variant="h2" component="h2" gutterBottom>
+        <Typography variant="h4" component="h4" gutterBottom>
           Help Center
       </Typography>
       </div>
