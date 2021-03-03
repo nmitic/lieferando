@@ -6,7 +6,6 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import styles from './NavigationTiles.module.css';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -45,7 +44,7 @@ const NavigationTiles = props => {
             <Card>
               <CardActionArea>
                 <CardMedia
-                  className={styles.media}
+                  className={classes.media}
                   image="/order.jpg"
                   title="/order.jpg"
                 />
