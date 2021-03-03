@@ -7,19 +7,25 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import styles from './NavigationTiles.module.css';
+import { makeStyles } from '@material-ui/core/styles';
 
-
+const useStyles = makeStyles((theme) => ({
+  media: {
+    height: 140
+  }
+}));
 const NavigationTiles = props => {
-  return (
-    <Grid container spacing="2">
-      <Grid item sm={6}>
+  const classes = useStyles();
 
+  return (
+    <Grid container spacing={2}>
+      <Grid item sm={6} xs={12}>
         <Link href="/contact">
           <UILink>
             <Card>
               <CardActionArea>
                 <CardMedia
-                  className={styles.media}
+                  className={classes.media}
                   image="/contact.jpg"
                   title="/contact.jpg"
                 />
@@ -32,9 +38,8 @@ const NavigationTiles = props => {
             </Card>
           </UILink>
         </Link>
-
       </Grid>
-      <Grid item sm={6}>
+      <Grid item sm={6} xs={12}>
         <Link href="/orders">
           <UILink>
             <Card>
