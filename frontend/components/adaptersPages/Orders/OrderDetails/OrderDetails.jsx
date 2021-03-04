@@ -3,6 +3,12 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
+import BorderColorOutlinedIcon from '@material-ui/icons/BorderColorOutlined';
+import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
+import DoneAllOutlinedIcon from '@material-ui/icons/DoneAllOutlined';
+import EuroSymbolOutlinedIcon from '@material-ui/icons/EuroSymbolOutlined';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -20,11 +26,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-import BorderColorOutlinedIcon from '@material-ui/icons/BorderColorOutlined';
-import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
-import DoneAllOutlinedIcon from '@material-ui/icons/DoneAllOutlined';
-import EuroSymbolOutlinedIcon from '@material-ui/icons/EuroSymbolOutlined';
-import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+const formatDate = date => new Date(date).toUTCString();
 
 const OrderDetails = ({ currentOrder }) => {
   const {
@@ -43,19 +45,28 @@ const OrderDetails = ({ currentOrder }) => {
           <ListItemIcon>
             <BorderColorOutlinedIcon />
           </ListItemIcon>
-          <ListItemText primary={reference} />
+          <ListItemText 
+            primary={reference}
+            secondary="Order reference number"
+          />
         </ListItem>
         <ListItem>
           <ListItemIcon>
             <DateRangeOutlinedIcon />
           </ListItemIcon>
-          <ListItemText primary={date} />
+          <ListItemText 
+            primary={formatDate(date)}
+            secondary="Order date"
+          />
         </ListItem>
         <ListItem>
           <ListItemIcon>
             <EuroSymbolOutlinedIcon />
           </ListItemIcon>
-          <ListItemText primary={cost} />
+          <ListItemText 
+            primary={cost}
+            secondary="Order cost"
+          />
         </ListItem>
       </List>
       {
@@ -64,14 +75,20 @@ const OrderDetails = ({ currentOrder }) => {
             <ListItemIcon className={classes.iconSuccess}>
               <DoneAllOutlinedIcon />
             </ListItemIcon>
-            <ListItemText primary='Delivered' />
+            <ListItemText 
+              primary='Delivered'
+              secondary="delivery status"
+            />
           </ListItem>
         ) : (
             <ListItem className={classes.notDeliveredItem}>
               <ListItemIcon className={classes.iconFailure}>
                 <ErrorOutlineIcon />
               </ListItemIcon>
-              <ListItemText primary='Not delivered' />
+              <ListItemText 
+                primary='Not delivered'
+                secondary="delivery status"
+              />
             </ListItem>
           )
       }
