@@ -37,7 +37,7 @@ const Orders = () => {
 
       {orderNotFound && (
         <Typography variant="body1" component="p">
-          No order found the given reference number
+          No order found for the given reference number
         </Typography>
       )}
       
