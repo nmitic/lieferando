@@ -33,7 +33,7 @@ const Orders = () => {
       <Title text="Find your order" />
       <SearchOrders handleSearchOrders={handleSearchOrders}/>
       {
-        (currentOrder && !orderNotFound) &&
+        currentOrder && !orderNotFound &&
           <OrderDetails currentOrder={currentOrder}/>
       }
 

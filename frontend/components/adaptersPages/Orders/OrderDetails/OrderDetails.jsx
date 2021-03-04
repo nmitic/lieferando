@@ -70,6 +70,7 @@ const OrderDetails = ({ currentOrder }) => {
         </ListItem>
       </List>
       {
+        //Show either green or red styled delivered flag
         delivered ? (
           <ListItem className={classes.deliveredItem}>
             <ListItemIcon className={classes.iconSuccess}>
