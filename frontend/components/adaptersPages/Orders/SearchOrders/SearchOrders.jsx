@@ -23,7 +23,7 @@ const SearchOrders = ({ handleSearchOrders }) => {
     },
   });
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form onSubmit={formik.handleSubmit} data-testid="search-orders">
       <Grid container spacing={2}>
         <Grid item sm={10} xs={12}>
           <TextField
