@@ -1,4 +1,4 @@
-import Layout from '../../Layout';
+import Layout from '../../shared/Layout';
 import Title from './Title';
 import SearchBar from './SearchBar';
 import NavigationTiles from './NavigationTiles';

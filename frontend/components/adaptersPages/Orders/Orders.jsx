@@ -1,10 +1,10 @@
-import Layout from '../../Layout/';
+import Layout from '../../shared/Layout';
 import SearchOrders from './SearchOrders';
 import OrderDetails from './OrderDetails'
 import { useState, useEffect } from 'react';
 import {fetchOrdersData} from './Orders.request';
 
-const orders = () => {
+const Orders = () => {
   const [ordersData, setOrdersData] = useState([]);
   const [currentOrder, setCurrentOrder] = useState(null)
   const [orderNotFound, setOrderNotFound] = useState(false)
@@ -39,4 +39,4 @@ const orders = () => {
   );
 };
 
-export default orders;
+export default Orders;

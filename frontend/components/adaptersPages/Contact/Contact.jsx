@@ -1,6 +1,6 @@
-import Layout from '../../Layout/';
+import Layout from '../../shared/Layout';
 
-const contact = () => {
+const Contact = () => {
   return (
     <Layout>
       Contact
@@ -8,4 +8,4 @@ const contact = () => {
   );
 };
 
-export default contact;
+export default Contact;

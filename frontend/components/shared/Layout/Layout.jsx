@@ -2,6 +2,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Head from 'next/head';
+import Header from './Header'
 
 const theme = createMuiTheme({
     palette: {
@@ -27,6 +28,7 @@ const Layout = props => {
                 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
             </Head>
             <ThemeProvider theme={theme}>
+                <Header />
                 <Container maxWidth="sm">
                     <CssBaseline />
                     {props.children}
