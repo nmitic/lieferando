@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     height: 140
   }
 }));
+
 const NavigationTiles = props => {
   const classes = useStyles();
 
