@@ -7,13 +7,13 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Title = props => {
+const Title = ({text}) => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <Typography variant="h4" component="h4" gutterBottom>
-        Help Center
+        {text}
       </Typography>
     </div>
   );

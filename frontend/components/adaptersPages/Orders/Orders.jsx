@@ -1,4 +1,5 @@
 import Layout from '../../shared/Layout';
+import Title from '../../shared/Title';
 import SearchOrders from './SearchOrders';
 import OrderDetails from './OrderDetails'
 import { useState, useEffect } from 'react';
@@ -29,6 +30,7 @@ const Orders = () => {
 
   return (
     <Layout>
+      <Title text="Find your order" />
       <SearchOrders handleSearchOrders={handleSearchOrders}/>
       {
         (currentOrder && !orderNotFound) &&
