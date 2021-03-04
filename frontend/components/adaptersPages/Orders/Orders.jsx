@@ -13,6 +13,7 @@ const Orders = () => {
     const searchedOrder = ordersData.find(order => order.reference === orderReference)
     if (searchedOrder) {
       setCurrentOrder(searchedOrder)
+      setOrderNotFound(false)
     } else {
       setOrderNotFound(true)
     }

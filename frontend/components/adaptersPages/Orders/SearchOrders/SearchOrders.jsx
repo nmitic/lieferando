@@ -18,7 +18,8 @@ const SearchOrders = ({ handleSearchOrders }) => {
       orderNumber: '',
     },
     onSubmit: values => {
-      alert(JSON.stringify(values, null, 2));
+      const {orderNumber} = values;
+      handleSearchOrders(orderNumber)
     },
   });
   return (
@@ -28,13 +29,13 @@ const SearchOrders = ({ handleSearchOrders }) => {
           <TextField
             fullWidth
             variant="outlined"
-            id="search-order"
-            name="search-order"
+            id="orderNumber"
+            name="orderNumber"
             label="Search Order"
             value={formik.values.orderNumber}
             onChange={formik.handleChange}
             error={formik.touched.orderNumber && Boolean(formik.errors.orderNumber)}
-            helperText={formik.touched.orderNumber && formik.errors.orderNumber}
+            helperText={formik.touched.orderNumber && formik.errors.email}
           />
         </Grid>
         <Grid item sm={2} xs={12}>
