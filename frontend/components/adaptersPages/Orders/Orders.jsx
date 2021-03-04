@@ -24,7 +24,7 @@ const Orders = () => {
   useEffect(() => {
     fetchOrdersData(
       data => setOrdersData(data),
-      error => console.error(error)
+      error => console.log(error)
     );
   }, [])
 
@@ -38,9 +38,11 @@ const Orders = () => {
       }
 
       {orderNotFound && (
-        <Typography variant="body1" component="p">
-          No order found for the given reference number
-        </Typography>
+        <div data-testid="order-not-found">
+          <Typography variant="body1" component="p">
+            No order found for the given reference number
+          </Typography>
+        </div>
       )}
       
     </Layout>

@@ -27,6 +27,7 @@ const SearchOrders = ({ handleSearchOrders }) => {
       <Grid container spacing={2}>
         <Grid item sm={10} xs={12}>
           <TextField
+            inputProps={{ "data-testid": "search-orders-input" }}
             fullWidth
             variant="outlined"
             id="orderNumber"
@@ -39,7 +40,8 @@ const SearchOrders = ({ handleSearchOrders }) => {
           />
         </Grid>
         <Grid item sm={2} xs={12}>
-          <Button 
+          <Button
+            data-testid="search-order-submit"
             color="primary"
             variant="contained"
             fullWidth type="submit"

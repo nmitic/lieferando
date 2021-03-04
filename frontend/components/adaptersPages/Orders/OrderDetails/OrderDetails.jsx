@@ -39,7 +39,7 @@ const OrderDetails = ({ currentOrder }) => {
   const classes = useStyles();
 
   return (
-    <div>
+    <div data-testid="order-details">
       <List component="nav" aria-label="main mailbox folders">
         <ListItem>
           <ListItemIcon>
