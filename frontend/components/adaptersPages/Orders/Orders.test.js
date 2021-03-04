@@ -1,4 +1,9 @@
-import { render, fireEvent, cleanup, waitFor } from '@testing-library/react';
+import { 
+  render, 
+  fireEvent, 
+  waitFor, 
+  screen 
+} from '@testing-library/react';
 import Orders from './Orders';
 
 const responseMock = {
@@ -24,35 +29,33 @@ const setup = () => {
     searchOrders,
     searchOrdersInput,
     searchOrdersSubmit,
-    orderNotFound,
-    ...util
+    orderNotFound
   }
 }
 
 describe('Order page show proper UI elements depending in user interaction', () => {
-  afterEach(cleanup);
-
   // When user first visit the page 
   // then only show searchBox 
-  it('initial state, renders searchBox only', () => {
+  beforeEach(() => fetch.mockResponse(JSON.stringify(responseMock.success)));
+  
+  it('initial state, renders searchBox only', async () => {
     const { searchOrders, orderNotFound } = setup();
-
-    expect(searchOrders).toBeTruthy();
-    expect(orderNotFound).toBeFalsy();
+    await waitFor(() => {
+      expect(searchOrders).toBeTruthy();
+      expect(orderNotFound).toBeFalsy();
+    });
   })
 
   // When user search for existing order
   // then show order details
   it('show ordersDetail when searching for the existing order', async () => {
-    fetch.mockResponse(JSON.stringify(responseMock.success));
-
-    const { searchOrdersInput, searchOrdersSubmit, queryByTestId } = setup();
+    const { searchOrdersInput, searchOrdersSubmit } = setup();
 
     fireEvent.change(searchOrdersInput, { target: { value: responseMock.success[0].reference } });
     fireEvent.click(searchOrdersSubmit)
 
     await waitFor(() => {
-      const orderDetails = queryByTestId('order-details');
+      const orderDetails = screen.queryByTestId('order-details');
       expect(orderDetails).toBeTruthy();
     })
   })
@@ -60,16 +63,14 @@ describe('Order page show proper UI elements depending in user interaction', () 
   // When user search for non existing order
   // then show order not found message
   it('show not found message when searching for the non existing order', async () => {
-    fetch.mockResponse(JSON.stringify(responseMock.success));
-
-    const { searchOrdersInput, searchOrdersSubmit, queryByTestId } = setup();
+    const { searchOrdersInput, searchOrdersSubmit } = setup();
 
     fireEvent.change(searchOrdersInput, { target: { value: 'non existing order' } });
     fireEvent.click(searchOrdersSubmit)
 
     await waitFor(() => {
-      const orderDetails = queryByTestId('order-details');
-      const notFoundMessage = queryByTestId('order-not-found');
+      const orderDetails = screen.queryByTestId('order-details');
+      const notFoundMessage = screen.queryByTestId('order-not-found');
 
       expect(orderDetails).toBeFalsy();
       expect(notFoundMessage).toBeTruthy();
