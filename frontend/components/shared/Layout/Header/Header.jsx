@@ -8,7 +8,8 @@ const useStyles = makeStyles((theme) => {
     root: {
       backgroundColor: theme.palette.primary.main,
       paddingBottom: theme.spacing(1),
-      paddingTop: theme.spacing(1)
+      paddingTop: theme.spacing(1),
+      marginBottom: theme.spacing(4)
     }
   }
 });
