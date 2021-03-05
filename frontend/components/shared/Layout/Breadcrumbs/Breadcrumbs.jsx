@@ -5,7 +5,6 @@ import {
 } from '../../../adaptersUiLib';
 
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -18,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Breadcrumbs = ({pathsObject}) => {
+const Breadcrumbs = ({ pathsObject }) => {
   const classes = useStyles()
 
   return (
@@ -26,18 +25,23 @@ const Breadcrumbs = ({pathsObject}) => {
       {
         pathsObject.map((item, index) => {
           return (
-            // Do not render link for the last path in the breadcrumbs
-            index + 1 !== pathsObject.length ?
-              <Link 
-                href={item.path} 
-                key={item.path}
-              >
-                <UILink className={classes.link}>
-                  {item.name}
-                </UILink>
-              </Link> 
-              :
-              <Typography key={item.name}>{item.name}</Typography>
+            <div data-testid="breadcrumb-item" key={item.path}>
+              {
+                // Do not render link for the last path in the breadcrumbs
+                index + 1 !== pathsObject.length ?
+                  <Link
+                    href={item.path}
+                  >
+                    <UILink className={classes.link}>
+                      {item.name}
+                    </UILink>
+                  </Link>
+                  :
+                  <div data-testid="breadcrumb-item-non-link">
+                    <Typography key={item.name}>{item.name}</Typography>
+                  </div>
+              }
+            </div>
           )
         })
       }

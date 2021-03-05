@@ -1,10 +1,19 @@
-import { 
-  render, 
-  fireEvent, 
-  waitFor, 
-  screen 
+import {
+  render,
+  fireEvent,
+  waitFor,
+  screen
 } from '@testing-library/react';
 import Orders from './Orders';
+
+jest.mock("next/router", () => ({
+  useRouter() {
+      return {
+          route: "/",
+          pathname: "/",
+      };
+  },
+}));
 
 const responseMock = {
   success: [
@@ -37,7 +46,7 @@ describe('Order page show proper UI elements depending in user interaction', () 
   // When user first visit the page 
   // then only show searchBox 
   beforeEach(() => fetch.mockResponse(JSON.stringify(responseMock.success)));
-  
+
   it('initial state, renders searchBox only', async () => {
     const { searchOrders, orderNotFound } = setup();
     await waitFor(() => {

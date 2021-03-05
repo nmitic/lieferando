@@ -1,14 +1,28 @@
 import { render, screen } from '@testing-library/react';
+import { within } from '@testing-library/dom'
 
 import Breadcrumbs from './Breadcrumbs';
 
-
-describe('Order details are showing the correct delivery status depending on the response flag', () => {
+describe('Breadcrumbs are rendered properly depending on the paths object size', () => {
   // When the response flag for delivery is set to true
   // Then show the green state
   it('show the green delivery status', () => {
-    render(<Breadcrumbs currentOrder={testCases.delivered} />)
+    render(<Breadcrumbs pathsObject={[
+      {
+        path: '/',
+        name: 'home'
+      },
+      {
+        path: '/firstLevel',
+        name: 'firstName'
+      },
+      {
+        path: '/secondLevel',
+        name: 'secondLevel'
+      }
+    ]} />)
 
-    screen.getByText('Delivered')
+    const breadcrumbsLink = screen.queryAllByTestId('breadcrumb-item');
+    expect(within(breadcrumbsLink[0]).queryByTestId('breadcrumb-item-non-link')).toBeFalsy();
   })
 })

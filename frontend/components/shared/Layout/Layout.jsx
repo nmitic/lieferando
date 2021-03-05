@@ -41,7 +41,7 @@ const Layout = props => {
         <Header />
         <Container maxWidth="sm">
           <CssBaseline />
-          <Breadcrumbs pathsObject={generateBreadcrumbPathObject(router.asPath, 'help center')}/>
+          <Breadcrumbs pathsObject={generateBreadcrumbPathObject(router.route, 'help center')}/>
           {props.children}
         </Container>
       </ThemeProvider>
