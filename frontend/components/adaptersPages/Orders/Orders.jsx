@@ -3,8 +3,8 @@ import Title from '../../shared/Title';
 import SearchOrders from './SearchOrders';
 import OrderDetails from './OrderDetails'
 import { useState, useEffect } from 'react';
-import Typography from '@material-ui/core/Typography';
-import {fetchOrdersData} from './Orders.request';
+import { Typography } from '../../adaptersUiLib';
+import { fetchOrdersData } from './Orders.request';
 
 const Orders = () => {
   const [ordersData, setOrdersData] = useState([]);
@@ -31,10 +31,10 @@ const Orders = () => {
   return (
     <Layout>
       <Title text="Find your order" />
-      <SearchOrders handleSearchOrders={handleSearchOrders}/>
+      <SearchOrders handleSearchOrders={handleSearchOrders} />
       {
         currentOrder && !orderNotFound &&
-          <OrderDetails currentOrder={currentOrder}/>
+        <OrderDetails currentOrder={currentOrder} />
       }
 
       {orderNotFound && (
@@ -44,7 +44,7 @@ const Orders = () => {
           </Typography>
         </div>
       )}
-      
+
     </Layout>
   );
 };

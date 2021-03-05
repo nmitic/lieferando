@@ -1,7 +1,11 @@
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+import PropTypes from 'prop-types';
+
+import { 
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText
+ } from '../../../adaptersUiLib';
 
 import BorderColorOutlinedIcon from '@material-ui/icons/BorderColorOutlined';
 import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
@@ -12,16 +16,10 @@ import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-  deliveredItem: {
+  delivered: {
     color: theme.palette.primary.success
   },
-  iconSuccess: {
-    color: theme.palette.primary.success
-  },
-  notDeliveredItem: {
-    color: theme.palette.primary.failure
-  },
-  iconFailure: {
+  notDelivered: {
     color: theme.palette.primary.failure
   }
 }));
@@ -72,8 +70,8 @@ const OrderDetails = ({ currentOrder }) => {
       {
         //Show either green or red styled delivered flag
         delivered ? (
-          <ListItem className={classes.deliveredItem}>
-            <ListItemIcon className={classes.iconSuccess}>
+          <ListItem className={classes.delivered}>
+            <ListItemIcon className={classes.delivered}>
               <DoneAllOutlinedIcon />
             </ListItemIcon>
             <ListItemText 
@@ -82,8 +80,8 @@ const OrderDetails = ({ currentOrder }) => {
             />
           </ListItem>
         ) : (
-            <ListItem className={classes.notDeliveredItem}>
-              <ListItemIcon className={classes.iconFailure}>
+            <ListItem className={classes.notDelivered}>
+              <ListItemIcon className={classes.notDelivered}>
                 <ErrorOutlineIcon />
               </ListItemIcon>
               <ListItemText 
@@ -96,5 +94,14 @@ const OrderDetails = ({ currentOrder }) => {
     </div>
   );
 };
+
+OrderDetails.prototype = {
+  currentOrder: PropTypes.exact({
+    reference: PropTypes.string,
+    date: PropTypes.string,
+    delivered: PropTypes.bool,
+    cost: PropTypes.number,
+  }).isRequired
+}
 
 export default OrderDetails;

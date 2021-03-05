@@ -1,6 +1,8 @@
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
+import {
+  TextField,
+  Button,
+  Grid
+} from '../../../adaptersUiLib';
 import { makeStyles } from '@material-ui/core/styles';
 import { useFormik } from 'formik';
 

@@ -1,11 +1,14 @@
 import Link from 'next/link';
-import UILink from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
+import {
+  UILink,
+  Card,
+  Grid,
+  CardActionArea,
+  CardMedia,
+  CardContent,
+  Typography
+} from '../../../adaptersUiLib';
+
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
