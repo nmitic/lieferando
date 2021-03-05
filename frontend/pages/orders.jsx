@@ -1,7 +1,7 @@
-import Orders  from '../components/adaptersPages/Orders';
+import { OrdersPage } from '../components/adaptersPages';
 
 const orders = () => {
-  return <Orders />
+  return <OrdersPage />
 };
 
 export default orders;

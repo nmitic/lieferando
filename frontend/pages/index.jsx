@@ -1,7 +1,7 @@
-import Main from '../components/adaptersPages/Main';
+import { MainPage } from '../components/adaptersPages';
 
 const index = () => {
-  return <Main />
+  return <MainPage />
 };
 
 export default index;
