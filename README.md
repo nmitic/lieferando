@@ -1,140 +1,67 @@
 ![Takeaway Logo](https://ydnewsletter.s3.amazonaws.com/logo/takeawaycom.png)
 
-# FAQ App Challenge
+## Changes made to the original setup
+- added CORS header via `cors` npm package
+- added eslint and jest for frontend project
+- removed `npm run test` from the make file for backend because there is no test written for the backend part
 
-This repository contains the FAQ App challenge used for on-boarding new candidates
-to the BOHC (Back office Help Center) team.
+## About the dir structure
+My idea was not to have as readable dir structure as possible but rather how can I use dir structure to make reasoning about the code better and make future refactoring easier to make.
 
-## Getting Started
+For example, just by opening `components/shared/Layout` and by looking and the dir structure you would with ease make sense of how the Layout component is structured.
 
-For this challenge, we have provided you with a Makefile, making it easy to
-build and run the challenge, along with running the tests.
+You would see the following:
+- Breadcrumbs
+- Header
 
-### Prerequisites
+From this only, without even opening the Layout component you will be able to know how the component is structured. And you will be able to see all of its dependencies and everything which is needed for that component to run in the production and CD pipeline (styles, tracking, tests etc)
 
-You need to have docker pre-installed.
+Another benefit which is even more important is to be able to isolate your code on as many levels as possible. This allows for better scalability as refactoring will be easier to do since you can move things along the dir structure without breaking the code.
 
-### Installing
+One more benefit is reduced "mental gymnastics". For example if you have a bug which is happening on the `orders` page you will instantly know which dir to open and which components might caused the issue. And once you are inside the givin dir, you will not have to think about the what ever is happening outside.
 
-You will need to run
+## AdaptersPages and AdaptersUiLib, what are those ?
+  Next js does not support the structure explained above, since everything under /pages will be mapped to a route. So it was a must for me to outsource pages into somewhere else. However, along side with the benefits I mentioned above there are some more:
+  - Pages are (more or less) agnostic about the routing mechanism
+  - Pages can be outsourced and can be deployed independently and worked on independently as well
 
-```sh
-make build
-```
-OR (for non-unix users)
-```sh
-docker-compose down
-docker-compose build
-docker run -w=/app -v=$(PWD)/backend/:/app node:lts-alpine npm install
-docker run -w=/app -v=$(PWD)/frontend/:/app node:lts-alpine npm install
-```
+  AdaptersPages can be a nice way of preparing your code base for the future micro frontend architecture. This might be viewed as premature optimizing. But I am a firm believer that you can not optimize your dir structure too much.
 
-at the root folder of the challenge to ensure the challenge is fully built before running it.
-
-### Running the tests
-
-All tests, frontend and backend, need to be able to run by issuing the following command
-
-```sh
-make test
-```
-OR (for non-unix users)
-```sh 
-docker run -w=/app -v=$(PWD)/backend/:/app node:lts-alpine npm run test
-docker run -w=/app -v=$(PWD)/frontend/:/app node:lts-alpine npm run test
-```
-
-
-### Run the Challenge
-
-The whole challenge should be runnable by issuing the following command from the root
-of the repository
-
-```sh
-make run
-```
-OR (for non-unix users)
-```sh 
-docker-compose up -d
-```
-
-and then viewable by visiting [localhost:12000](http://localhost:12000/).
-
-## The Challenge Itself
-
-What do you actually have to do?
-
-### Frontend
-We have provided a skeleton of a Next.js project for the frontend component of this challenge
-along with wire frames (see below). It is up to you to decide how pretty you wish the layout
-to be. For simplicity's sake, we have included react-bootstrap into the skeleton for you to
-use, should you wish. We expect the frontend to be responsive and support **both** *desktop* and 
-*mobile* views.
-
-We expect the following to be built:
+  AdaptersUiLib are one of the examples where this kind of a approach can save a lot of work from refactoring. The idea is the same. Do not tightly couple your modules!
+  If at some point project find a need for another UI lib it can be easily changed at one place, at the re-export of the AdaptersUiLib. 
   
-* A **Contact Form** *page* consisting of the basic form shown in the wireframe. If you wish,
-you may include some kind of feedback to the user upon submitting the contact form.
+  Provided that the new UI lib is modeled around the same API, which now days is almost always the case as UI libs are becoming more and more standardized.
 
-* An **Order Details** *page* which first shows a simple search bar, allowing one to search 
-using an **Order Reference** (see the **reference** field from _./backend/src/config/orders.mjs_)
-and then, on the same page, renders the associated details below when the *Next/Submit* button
-is clicked. One should be able to type in another **Order Reference** and re-click the
-*Next/Submit* button to change the details shown without needing to refresh the page. If the 
-searched for **Order Reference** is non-existent, it should show something to the user
-to make this obvious. The order search and details should come from the **orders** endpoint
-found in the backend.
+  ## Few notes about the test
+  I decided to focus on those component which have user interaction involved and which actually have some rendering logic to be tested.
 
-* A **Main** *page* which consists of cards (as shown in the wireframe), each leading
-to the respective pages mentioned above. _Note_: _You are not expected to implement the
-functionality of the search bar shown in the wireframe. You only need to create its look
-and responsiveness._ 
+  The why I liked to structure my test is in way that it can serve as a documentation to how specific feature should work.
 
-* Upon opening each page, an API call should be made to the **page view** endpoint, including 
-when the page is refreshed. The following data needs to be sent to the endpoint:
-  * The *path* of the current page
+  This is the reason why I do no care about the state of the component at the specific time or why I do not care if certain callback is being called with certain arguments.
 
-### Tests
-We expect a reasonable amount of code coverage along with explanations as to why you included the
-tests you did.
+  I only care that for the giving output and user interactions proper dom elements are being rendered. Which is exactly how the user will use your application.
 
-### What we are paying attention to
-* Code implementation correctness i.e. does everything work correctly and how it is supposed, does the project run properly
-* Code structure and naming i.e. how the code is structured/modularised and how easy it is to read and follow the code
-* Appropriate unit tests
-* Responsiveness of the application
+  ## Few notes about the actually implementation logic and what I would do differently if in production
+Firstly, there will very probably be an API endpoint which will allow me to fetch the single order details. But not to fetch the whole set. The whole set can be used to cache and later retrieved on the UI when needed however, the nature of `orders` are that they change a loot. And I would say that it really make sense to have a specific endpoint designed for this.
 
-### Wireframes
+This will allow me to make a request for that endpoint when users press enter on orders page, but not to fetch the whole data set in first mount and then search that data set on the client.
 
-#### Contact Form Page
-![Contact Form Page](wireframes/contact_form_page.png)
+There is no loading and error states for the request! This is a must and should be implemented.
 
-#### Order Details Page
-![Order Details Page](wireframes/order_details_page.png)
+Error handling of the request should be done in a way that accommodates for the scenarios such as cancel requests, slow connection or error status codes from the response. What I did is naively just logging the error message to the console.
 
-#### Order Details Page Continued
-![Order Details Page Continued](wireframes/order_details_page_2.png)
 
-#### Main Page
-![Main Page](wireframes/main_page.png)
+## Notes about the styling
+As I decided to make my life a bit easier I installed material UI. I ended up using their css in js solution. I personally do not like it as it does not feel like you are writing styles.
+However, it does a great job when it comes to css scoping and that is why I stick with it and not trying to setup things such as styledComponents or make use of css/scss with BEM.
 
-## Submitting the Challenge
-We expect you to upload the challenge to a git repository of your choosing and share
-it with us (see authors below), such that we can view the solution. We will be paying
-attention to your git commit messages etc. and would like all commit history to be present,
-hence, we ask that you do not squash the commits.
+There is a workaround I had to implement in order to get material ui to work on the server. You can see it under _app.js abd _document.js.
 
-## Built With
+## Notes about the forms
+You can only see that I used Formik on contact page but in the real scenario I would be using it for every input such as searchOrder or global search.
 
-* [Docker](https://www.docker.com/) - Containerising applications
-* [NPM](https://www.npmjs.com/) - Dependency Management
-* [Nodejs](https://nodejs.org/) - Lightweight javascript runtime
-* [React](https://reactjs.org/) - Frontend reactive framework
-* [Next.js](https://nextjs.org/) - React framework
+The reason for reaching out to Formik is firstly because it does not put the form state in global store but manage the state locally, the same way i would be doing if I was to build this by myself.
 
-## Authors
+Having said that, I probably would not build the form myself as they are mini applications on its own.
 
-* [Anirvan Bhaduri](mailto:anirvan.bhaduri@justeattakeaway.com)
-* [Erkand Imeri](mailto:erkand.imeri@justeattakeaway.com)
-* [Yashar Ayari](mailto:yashar.ayari@justeattakeaway.com)
-* [Milos Jovanovic](mailto:milos.jovanovic@justeattakeaway.com)
+Because of the way modern FE works they are always breaking the binding between the user input and what is being rendered inside the fields. This totally make sense for them to do because state var should be used to describe to application sate at any given time. But because of that a lot if simplicity of using the form natively is lost. This together with accessibility and validation is the reason why I would decide to use some third party lib for managing and building my forms.
