@@ -1,6 +1,7 @@
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Container from '@material-ui/core/Container';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { Container } from '../../adaptersUiLib';
+import Breadcrumbs from './Breadcrumbs';
 import Head from 'next/head';
 import Header from './Header'
 
@@ -35,6 +36,7 @@ const Layout = props => {
         <Header />
         <Container maxWidth="sm">
           <CssBaseline />
+          <Breadcrumbs />
           {props.children}
         </Container>
       </ThemeProvider>

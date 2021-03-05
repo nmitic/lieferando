@@ -11,3 +11,5 @@ export { default as List } from '@material-ui/core/List';
 export { default as ListItem } from '@material-ui/core/ListItem';
 export { default as ListItemIcon } from '@material-ui/core/ListItemIcon';
 export { default as ListItemText } from '@material-ui/core/ListItemText';
+export { default as Container } from '@material-ui/core/Container';
+export { default as UIBreadcrumbs } from '@material-ui/core/Breadcrumbs';
