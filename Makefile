@@ -26,5 +26,4 @@ do_run:
 	docker-compose up -d
 
 do_tests:
-	docker run -w=/app -v=$(PWD)/backend/:/app node:lts-alpine npm run test
 	docker run -w=/app -v=$(PWD)/frontend/:/app node:lts-alpine npm run test
