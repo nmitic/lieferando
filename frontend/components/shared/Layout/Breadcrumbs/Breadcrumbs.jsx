@@ -18,35 +18,16 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Breadcrumbs = props => {
-  const router = useRouter();
+const Breadcrumbs = ({pathsObject}) => {
   const classes = useStyles()
-
-  const generateBreadcrumbPathObject = (paths, homePathName) => {
-    const homePath = { path: '/', name: homePathName };
-    const isOnRootPath = paths === '/';
-    const arrayOfPaths = paths.split('/');
-    //remove the first item which is empty string
-    arrayOfPaths.shift();
-
-    // If current path is root return root path, as there is no need to iterate over the path
-    if (isOnRootPath) {
-      return [homePath]
-    }
-    // otherwise build the paths array object
-    return arrayOfPaths.reduce((acc, curr, index) => [...acc, { path: `${acc[index].path}${curr}/`, name: curr }], [homePath]);
-  }
-
-  console.log(router.asPath, generateBreadcrumbPathObject(router.asPath))
-  const pathsToRender = generateBreadcrumbPathObject(router.asPath, 'help center');
 
   return (
     <UIBreadcrumbs aria-label='breadcrumb' className={classes.root}>
       {
-        pathsToRender.map((item, index) => {
+        pathsObject.map((item, index) => {
           return (
             // Do not render link for the last path in the breadcrumbs
-            index + 1 !== pathsToRender.length ?
+            index + 1 !== pathsObject.length ?
               <Link 
                 href={item.path} 
                 key={item.path}
@@ -56,7 +37,7 @@ const Breadcrumbs = props => {
                 </UILink>
               </Link> 
               :
-              <Typography>{item.name}</Typography>
+              <Typography key={item.name}>{item.name}</Typography>
           )
         })
       }

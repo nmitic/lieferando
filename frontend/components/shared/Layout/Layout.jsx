@@ -4,6 +4,9 @@ import { Container } from '../../adaptersUiLib';
 import Breadcrumbs from './Breadcrumbs';
 import Head from 'next/head';
 import Header from './Header'
+import { useRouter } from 'next/router';
+
+import { generateBreadcrumbPathObject } from '../../../utils';
 
 const theme = createMuiTheme({
   palette: {
@@ -27,6 +30,8 @@ const theme = createMuiTheme({
 });
 
 const Layout = props => {
+  const router = useRouter();
+
   return (
     <>
       <Head>
@@ -36,7 +41,7 @@ const Layout = props => {
         <Header />
         <Container maxWidth="sm">
           <CssBaseline />
-          <Breadcrumbs />
+          <Breadcrumbs pathsObject={generateBreadcrumbPathObject(router.asPath, 'help center')}/>
           {props.children}
         </Container>
       </ThemeProvider>
