@@ -23,6 +23,11 @@ describe('Breadcrumbs are rendered properly depending on the paths object size',
     ]} />)
 
     const breadcrumbsLink = screen.queryAllByTestId('breadcrumb-item');
+    // first item should be link
     expect(within(breadcrumbsLink[0]).queryByTestId('breadcrumb-item-non-link')).toBeFalsy();
+    // second item should be link
+    expect(within(breadcrumbsLink[1]).queryByTestId('breadcrumb-item-non-link')).toBeFalsy();
+    // Last item should not be link
+    expect(within(breadcrumbsLink[2]).queryByTestId('breadcrumb-item-non-link')).toBeTruthy();
   })
 })
